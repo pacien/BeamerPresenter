@@ -699,3 +699,10 @@ void DrawSlide::animate(const int oldPageIndex)
          updatePathCache();
      }
 }
+
+void DrawSlide::tabletEvent(QTabletEvent *event)
+{
+    qDebug() << "Tablet event" << event;
+    // TODO
+    event->ignore();
+}

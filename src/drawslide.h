@@ -55,6 +55,7 @@ protected:
     virtual void mousePressEvent(QMouseEvent* event) override;
     virtual void mouseReleaseEvent(QMouseEvent* event) override;
     virtual void mouseMoveEvent(QMouseEvent* event) override;
+    virtual void tabletEvent(QTabletEvent* event) override;
     virtual void resizeEvent(QResizeEvent*) override;
     virtual void animate(int const oldPageIndex = -1) override;
     virtual void repaintIfPresentation() {update();}
@@ -66,6 +67,7 @@ protected:
     QMap<DrawTool, quint16> sizes = {{Magnifier,120}, {Torch,80}, {Pointer,10}, {Highlighter,30}, {Pen,3}, {Eraser,10}};
     bool pointer_visible = true;
     qreal magnification = 2.;
+    /// Transparent pixmap, on which paths are drawn for increased performance.
     QPixmap pixpaths;
     int end_cache = -1;
 

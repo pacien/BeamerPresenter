@@ -149,6 +149,11 @@ ControlScreen::ControlScreen(QString presentationPath, QString notesPath, QWidge
     ui->current_slide->setDoc(presentation);
     ui->next_slide->setDoc(presentation);
 
+    // Experimental, still without function:
+    // Interpret gestures on touch pads and touch screens.
+    grabGesture(Qt::PinchGesture);
+    grabGesture(Qt::SwipeGesture);
+
     // Create widget showing table of content (TocBox) on the control screen.
     // tocBox is empty by default and will be updated when it is shown for the first time.
     tocBox = new TocBox(this);
@@ -1367,6 +1372,29 @@ void ControlScreen::wheelEvent(QWheelEvent* event)
         updateCache();
     }
     event->accept();
+}
+
+bool ControlScreen::event(QEvent *event)
+{
+    if (event->type() == QEvent::Gesture) {
+        bool handled = false;
+        for (auto gest : static_cast<QGestureEvent*>(event)->activeGestures()) {
+            switch (gest->gestureType()) {
+            case Qt::PinchGesture:
+                qDebug() << "Pinch gesture" << event;
+                // TODO
+                break;
+            case Qt::GestureType::SwipeGesture:
+                qDebug() << "Swipe gesture" << event;
+                // TODO
+                break;
+            default:
+                break;
+            }
+        }
+        return handled;
+    }
+    return QWidget::event(event);
 }
 
 #ifdef EMBEDDED_APPLICATIONS_ENABLED

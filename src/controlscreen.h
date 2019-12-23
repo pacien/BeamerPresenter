@@ -21,6 +21,7 @@
 
 #include <QMainWindow>
 #include <QFileDialog>
+#include <QGestureEvent>
 #include <QLabel>
 #include "pdfdoc.h"
 #include "timer.h"
@@ -102,6 +103,7 @@ protected:
     void keyPressEvent(QKeyEvent* event) override;
     void resizeEvent(QResizeEvent* event) override;
     void wheelEvent(QWheelEvent* event) override;
+    bool event(QEvent* event) override;
 
 private:
     // Update layout (if window size is changed).
